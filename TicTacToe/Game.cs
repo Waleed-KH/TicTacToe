@@ -31,7 +31,6 @@ namespace TicTacToe
 
 			// Play
 			plays[index] = CurrentPlayer;
-			Played?.Invoke(this, EventArgs.Empty);
 
 
 			// Chack if current player wins
@@ -45,23 +44,41 @@ namespace TicTacToe
 					Winning = new GameWin(CurrentPlayer, winLine);
 
 					IsGameOver = true;
+					Played?.Invoke(this, EventArgs.Empty);
 					GameOver?.Invoke(this, new GameOverEventArgs(Winning));
 					return;
 				}
 			}
 
 			// Chack if game is over with no winner
-			if (!plays.Contains(GamePlay.None))
+			if (!plays.Contains(GamePlay.None) ||
+				(!plays.Select((value, i) => new { value, index = i })
+				.Where((play) => Array.IndexOf(new int[] { 0, 1, 2, 6, 7, 8 }, play.index) > -1)
+				.Select(p => p.value).Contains(GamePlay.None) &&
+				plays[0] == plays[2] && plays[2] == plays[7] &&
+				plays[1] == plays[6] && plays[6] == plays[8]) ||
+				(!plays.Select((value, i) => new { value, index = i })
+				.Where((play) => Array.IndexOf(new int[] { 0, 2, 3, 5, 6, 8 }, play.index) > -1)
+				.Select(p => p.value).Contains(GamePlay.None) &&
+				plays[0] == plays[5] && plays[5] == plays[6] &&
+				plays[2] == plays[3] && plays[3] == plays[8]))
 			{
 				Winning = new GameWin(GamePlay.None, null);
 
 				IsGameOver = true;
+				Played?.Invoke(this, EventArgs.Empty);
 				GameOver?.Invoke(this, new GameOverEventArgs(Winning));
 				return;
 			}
 
+			Played?.Invoke(this, EventArgs.Empty);
 			// If not over get ready for next round
 			CurrentPlayer = (GamePlay)((int)CurrentPlayer % 2 + 1);
+
+			// Auto play if only one left
+			if (plays.Where((p) => p == GamePlay.None).Count() == 1)
+				Play(plays.IndexOf(GamePlay.None));
+
 		}
 
 		public GamePlay CurrentPlayer { get; private set; } = GamePlay.X;

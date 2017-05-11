@@ -50,20 +50,18 @@ namespace TicTacToe.GUI
 		}
 		private void NewGame()
 		{
+			if (game?.Winning?.WinLine != null)
+				foreach (var winCell in game.Winning.WinLine)
+				{
+					playIndexButtons[winCell].Foreground = Brushes.Black;
+					playIndexButtons[winCell].FontWeight = FontWeights.Normal;
+				}
 			game = new Game();
+			//game.Played += (object sender, EventArgs e) => UpdateBoard();
 			UpdateBoard();
 		}
 		private void UpdateBoard()
 		{
-			if (game.IsGameOver)
-			{
-				GameStatus.Text = "Game Over - " + (game.Winning.Winner == GamePlay.None ? "No winner" : "Winner is " + game.Winning.Winner);
-				// TODO: Highlight the win line
-			}
-			else
-				GameStatus.Text = "Current Player: " + game.CurrentPlayer;
-
-
 			for (int i = 0; i < game.Plays.Count; i++)
 			{
 				if (game.Plays[i] == GamePlay.None)
@@ -77,6 +75,21 @@ namespace TicTacToe.GUI
 					playIndexButtons[i].IsEnabled = false;
 				}
 			}
+
+			if (game.IsGameOver)
+			{
+				GameStatus.Text = "Game Over - " + (game.Winning.Winner == GamePlay.None ? "No winner" : "Winner is " + game.Winning.Winner);
+				if (game.Winning.WinLine != null)
+					foreach (var winCell in game.Winning.WinLine)
+					{
+						playIndexButtons[winCell].Foreground = Brushes.RoyalBlue;
+						playIndexButtons[winCell].FontWeight = FontWeights.Bold;
+					}
+			}
+			else
+				GameStatus.Text = "Current Player: " + game.CurrentPlayer;
+
+
 		}
 	}
 }
