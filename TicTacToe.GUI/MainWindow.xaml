@@ -1,0 +1,49 @@
+﻿<Window x:Class="TicTacToe.GUI.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:TicTacToe.GUI"
+		mc:Ignorable="d"
+		Title="Tic Tac Toe" Height="350" Width="400">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<TextBlock FontSize="20" TextAlignment="Center" Padding="10">Tic Tac Toe</TextBlock>
+
+		<Grid Grid.Row="1" Margin="20, 0">
+			<Grid.RowDefinitions>
+				<RowDefinition />
+				<RowDefinition />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Button Grid.Row="0" Grid.Column="0" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex0" />
+			<Button Grid.Row="0" Grid.Column="2" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex2" />
+			<Button Grid.Row="1" Grid.Column="0" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex3" />
+			<Button Grid.Row="0" Grid.Column="1" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex1" />
+			<Button Grid.Row="1" Grid.Column="1" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex4" />
+			<Button Grid.Row="1" Grid.Column="2" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex5" />
+			<Button Grid.Row="2" Grid.Column="0" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex6" />
+			<Button Grid.Row="2" Grid.Column="1" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex7" />
+			<Button Grid.Row="2" Grid.Column="2" Margin="5" FontSize="40" Click="PlayIndex" x:Name="PlayIndex8" />
+		</Grid>
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock x:Name="GameStatus" VerticalAlignment="Center" Margin="10"></TextBlock>
+			<Button Grid.Column="1" Width="80" Margin="10" Click="NewGame" x:Name="NewGameButton">New Game</Button>
+
+		</Grid>
+	</Grid>
+</Window>
